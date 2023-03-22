@@ -19,7 +19,7 @@ const Login = async (req, res) => {
     if (result) {
       return res.send({
         msg: "Logged In Successful",
-        token: jwt.sign({ email: email }, "faisal", { expiresIn: 1 * 60 }),
+        token: jwt.sign({ email: email }, "faisal", { expiresIn: 60 * 60 }),
       });
     }
     return res.status(404).send("Incorrect password ");
@@ -28,7 +28,7 @@ const Login = async (req, res) => {
 
 const Register = async (req, res) => {
   const { email, password } = req.body;
-  
+
   bcrypt.hash(password, saltRounds, async function (err, hash) {
     if (err) {
       return res.status(400).send(err.message);
