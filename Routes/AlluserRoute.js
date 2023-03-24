@@ -6,7 +6,6 @@ const AlluserRoute = express.Router();
 
 AlluserRoute.get("/", AuthorizationMiddleware, async (req, res) => {
   let data = await userModel.find();
-
   res.json({ data: data });
 });
 

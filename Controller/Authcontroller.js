@@ -16,10 +16,14 @@ const Login = async (req, res) => {
 
   //Comparing hash password with the entered one
   bcrypt.compare(password, hash, function (err, result) {
+    if(err){
+      return res.json({msg:err.message})
+    }
+
     if (result) {
       return res.send({
         msg: "Logged In Successful",
-        token: jwt.sign({ email: email }, "faisal", { expiresIn: 60 * 60 }),
+        token: jwt.sign({ userID: user[0]._id }, "faisal", { expiresIn: 60 * 60 }),
       });
     }
     return res.status(404).send("Incorrect password ");

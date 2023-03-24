@@ -1,7 +1,20 @@
-const express=require("express")
+const express = require("express");
+const {
+  AddNotes,
+  DeleteNotes,
+  UpdateNotes,
+  GetNotes,
+  GetSingleNotes,
+} = require("../Controller/NotesController");
+const AuthorizationMiddleware = require("../Middlewares/AuthorizationMiddleware");
 
-const NotesRoute=express.Router()
+const NotesRoute = express.Router();
 
-NotesRoute.post("/add",)
+NotesRoute.use(AuthorizationMiddleware);
+NotesRoute.post("/add", AddNotes);
+NotesRoute.delete("/delete/:id", DeleteNotes);
+NotesRoute.patch("/update/:id", UpdateNotes);
+NotesRoute.get("/", GetNotes);
+NotesRoute.get("/:id", GetSingleNotes);
 
-NotesRoute.delete("/delete",)
+module.exports = { NotesRoute };
