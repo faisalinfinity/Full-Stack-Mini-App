@@ -1,0 +1,5 @@
+export const GET="get/notes"
+export const UPDATE="update/notes"
+export const DELETE="delete/notes"
+export const ADD="add/notes"
+export const GETSINGLE="getsingle/notes"

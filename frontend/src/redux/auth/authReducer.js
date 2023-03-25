@@ -1,7 +1,7 @@
 import { LOGIN, LOGOUT } from "./authTypes";
 
 const InitialState = {
-  isLogged:false,
+  isLoggedIn: false,
   firstname: "",
   lastname: "",
   email: "",
@@ -15,7 +15,8 @@ export const authReducer = (state = InitialState, action) => {
     case LOGIN: {
       return {
         ...state,
-        payload,
+        ...payload,
+        isLoggedIn: true,
       };
     }
 

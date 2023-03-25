@@ -14,6 +14,12 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Menu,
+  MenuButton,
+  Avatar,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -21,9 +27,16 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logoutAction } from "../redux/auth/authAction";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const {isLoggedIn,firstname,lastname}=useSelector((state)=>state.auth)
 
   return (
     <Box>
@@ -65,7 +78,29 @@ export default function Navbar() {
             <DesktopNav />
           </Flex>
         </Flex>
-
+     
+     {isLoggedIn? <Flex alignItems={'center'}>
+            <Menu>
+              <MenuButton
+                as={Button}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}
+                minW={0}>
+                <Avatar
+                  name={firstname+" "+lastname}
+                  size={'sm'}
+                 
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>{firstname+" "+lastname}</MenuItem>
+                <MenuItem>Link 2</MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={()=>dispatch(logoutAction())}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
+          </Flex>:
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
@@ -73,7 +108,7 @@ export default function Navbar() {
           spacing={6}
         >
           <Button
-            as={"a"}
+            onClick={()=>navigate("/login")}
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
@@ -82,7 +117,7 @@ export default function Navbar() {
             Sign In
           </Button>
           <Button
-            as={"a"}
+         onClick={()=>navigate("/register")}
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
@@ -95,7 +130,8 @@ export default function Navbar() {
           >
             Sign Up
           </Button>
-        </Stack>
+        </Stack>}
+       
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -257,7 +293,6 @@ const MobileNavItem = ({ label, children, href }) => {
     </Stack>
   );
 };
-
 
 const NAV_ITEMS = [
   {
