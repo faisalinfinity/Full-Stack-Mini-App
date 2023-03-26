@@ -50,9 +50,9 @@ const NotesPage = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {notes?.map((el) => {
+            {notes?.map((el,i) => {
               return (
-                <Tr>
+                <Tr key={i}>
                   <Td>{el.title}</Td>
                   <Td>{el.body}</Td>
                   <Td>
