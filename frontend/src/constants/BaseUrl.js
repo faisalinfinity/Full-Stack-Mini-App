@@ -1,1 +1,1 @@
-export const Base_Url="http://localhost:8080"
+export const Base_Url="https://fair-tan-loafers.cyclic.app"
