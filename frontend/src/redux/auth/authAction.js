@@ -7,6 +7,7 @@ export const loginAction=(payload)=>(dispatch)=>{
     .then((res)=>{
         console.log(res.data.user)
        dispatch({type:LOGIN,payload:res.data.user})
+       localStorage.setItem("notes/login",JSON.stringify({...res.data.user,isLoggedIn:true}))
     })
     
 
@@ -24,6 +25,7 @@ export const signupAction=(navigate,payload)=>()=>{
 }
 
 export const logoutAction=()=>{
+    localStorage.setItem("notes/login",null)
     return{
         type:LOGOUT,
     }

@@ -22,7 +22,7 @@ export const addAction = (token, payload) => (dispatch) => {
       },
     })
     .then((res) => {
-      alert("Added Successfully");
+     
       return dispatch({ type: ADD, payload: res.data.notes });
     })
     .catch((err) => console.log(err));
@@ -37,22 +37,22 @@ export const updateAction = (token, id, payload) => (dispatch) => {
       },
     })
     .then((res) => {
-      alert("Added Updated");
+     
       return dispatch({ type: UPDATE, payload: res.data.notes });
     })
     .catch((err) => console.log(err));
 };
 
-export const deleteAction = (token, id, payload) => (dispatch) => {
+export const deleteAction = (token, id) => (dispatch) => {
   return axios
-    .delete(`${Base_Url}/notes/delete/${id}`, payload, {
+    .delete(`${Base_Url}/notes/delete/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
     })
     .then((res) => {
-      alert("Deleted Successfully");
+     
       return dispatch({ type: DELETE, payload: res.data.notes });
     })
     .catch((err) => console.log(err));
@@ -67,7 +67,6 @@ export const getSingleAction = (token, id) => (dispatch) => {
       },
     })
     .then((res) => {
-      alert("Added Updated");
       return dispatch({ type: UPDATE, payload: res.data.notes });
     })
     .catch((err) => console.log(err));

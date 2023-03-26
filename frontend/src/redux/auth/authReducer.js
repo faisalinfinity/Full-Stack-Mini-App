@@ -1,18 +1,19 @@
 import { LOGIN, LOGOUT } from "./authTypes";
 
-const InitialState = {
+const InitialState =JSON.parse(localStorage.getItem("notes/login")) || {
   isLoggedIn: false,
   firstname: "",
   lastname: "",
   email: "",
   token: "",
-};
+}
 
 export const authReducer = (state = InitialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
     case LOGIN: {
+
       return {
         ...state,
         ...payload,

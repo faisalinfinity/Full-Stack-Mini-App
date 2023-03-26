@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +24,7 @@ const AddNotes = () => {
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
-
+  const toast = useToast()
   const [title,settitle]=useState("")
   const [body,setbody]=useState("")
   const [date,setdate]=useState("")
@@ -33,7 +34,13 @@ const AddNotes = () => {
         dispatch(addAction(token,{
             title,
             body,date
-        }))
+        })).then(()=>toast({
+            title: 'Notes Added.',
+            position:"top",
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          }))
     }else{
         alert("Invalid User ")
     }
@@ -75,7 +82,7 @@ const AddNotes = () => {
                 handleSave()
                 onClose()
             }} colorScheme="blue" mr={3}>
-              Save
+            Add
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>

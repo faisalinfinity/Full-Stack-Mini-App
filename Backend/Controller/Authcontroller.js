@@ -21,9 +21,15 @@ const Login = async (req, res) => {
     }
 
     if (result) {
-      return res.send({
+      return res.json({
         msg: "Logged In Successful",
-        token: jwt.sign({ userID: user[0]._id }, "faisal", { expiresIn: 60 * 60 }),
+        user:{
+          firstname:user[0].firstname,
+          lastname:user[0].lastname,
+          email:user[0].email,
+          token: jwt.sign({ userID: user[0]._id }, "faisal", { expiresIn: 60 * 60*24 })
+        }
+        ,
       });
     }
     return res.status(404).send("Incorrect password ");
@@ -31,13 +37,13 @@ const Login = async (req, res) => {
 };
 
 const Register = async (req, res) => {
-  const { email, password } = req.body;
-
+  const { password } = req.body;
+  console.log(password)
   bcrypt.hash(password, saltRounds, async function (err, hash) {
     if (err) {
       return res.status(400).send(err.message);
     }
-    let newUser = new userModel({ email: email, password: hash });
+    let newUser = new userModel({ ...req.body, password: hash });
     await newUser.save();
   });
 
